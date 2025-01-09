@@ -181,6 +181,8 @@ RUN apt-get update \
      && apt-get install -y ssh \
      && echo "root:Docker!" | chpasswd \
      && cd /etc/ssh/ \
-     && ssh-keygen -A
+     && ssh-keygen -A \
+     && systemctl enable ssh \
+     && systemctl start ssh
 
 CMD [ "bash", "start.sh"]
