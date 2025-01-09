@@ -31,6 +31,7 @@ RUN npm ci
 
 COPY . .
 ENV APP_BUILD_HASH=${BUILD_HASH}
+ENV NODE_OPTIONS=--max_old_space_size=8192
 RUN npm run build
 
 ######## WebUI backend ########
@@ -91,6 +92,8 @@ ENV HF_HOME="/app/backend/data/cache/embedding/models"
 WORKDIR /app/backend
 
 ENV HOME=/root
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
 # Create user and group if not root
 RUN if [ $UID -ne 0 ]; then \
     if [ $GID -ne 0 ]; then \
@@ -172,5 +175,12 @@ USER $UID:$GID
 ARG BUILD_HASH
 ENV WEBUI_BUILD_VERSION=${BUILD_HASH}
 ENV DOCKER=true
+
+COPY sshd_config /etc/ssh/
+RUN apt-get update \
+     && apt-get install -y ssh \
+     && echo "root:Docker!" | chpasswd \
+     && cd /etc/ssh/ \
+     && ssh-keygen -A
 
 CMD [ "bash", "start.sh"]
