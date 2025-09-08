@@ -185,11 +185,4 @@ ARG BUILD_HASH
 ENV WEBUI_BUILD_VERSION=${BUILD_HASH}
 ENV DOCKER=true
 
-COPY sshd_config /etc/ssh/
-RUN apt-get update \
-     && apt-get install -y ssh \
-     && echo "root:Docker!" | chpasswd \
-     && cd /etc/ssh/ \
-     && ssh-keygen -A 
-
 CMD [ "bash", "start.sh"]
