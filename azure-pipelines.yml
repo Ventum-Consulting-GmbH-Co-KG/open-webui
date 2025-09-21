@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '283a0c0f-7309-42b1-b98a-ac050a58d00a'
+  dockerRegistryServiceConnection: 'ee2648fc-6d22-404b-926a-607e3ea1320a'
   imageRepository: 'openwebui'
   containerRegistry: 'ventumcontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
